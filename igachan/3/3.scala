@@ -22,9 +22,9 @@ object List {
 
   // Exercise 3.2
   def tail[A](list: List[A]): List[A] = list match {
-    case Nil => Nil
-    case Cons(x, Nil) => Nil
-    case Cons(x, xs) => xs
+    case Nil => Nil // 例外にするか、引数に受け付けないようにする
+    // case Cons(x, Nil) => Nil
+    case Cons(_, xs) => xs
   }
 
   // Exercise 3.3
