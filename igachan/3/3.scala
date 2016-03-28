@@ -58,4 +58,27 @@ object List {
     case Cons(x, Nil) => Nil
     case Cons(x, xs) => append(Cons(x, Nil), init(xs))
   }
+
+  def foldRight[A, B](as: List[A], z: B)(f: (A, B) => B): B =
+    as match {
+      case Nil => z
+      case Cons(x, xs) => f(x, foldRight(xs, z)(f))
+    }
+
+
+  // Exercise 3.9
+  def length[A](as: List[A]): Int =
+    foldRight(as, 0)(1 + _)
+
+  // Exercise 3.10
+  def foldLeft[A, B](as: List[A], z: B)(f: (A, B) => B): B =
+    as match {
+      case Nil => z
+      case Cons(x, xz) => f(foldLeft(xz, z)(f), *)
+    }
+
+  // Exercise 3.11
+  def sum3(ns: List[int]): Int =
+    foldLeft(ns, 0)(_ + _)
+
 }
