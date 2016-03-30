@@ -69,10 +69,10 @@ object List {
   // 3.7
   // できない、一度リストをすべて操作してから関数実行するため
 
+
   // 3.9
-  def length[A](as: List[A]): Int = {
+  def length[A](as: List[A]): Int =
     foldRight(as, 0)((_,acc) => acc + 1)
-  }
 
   // 3.10
   @annotation.tailrec
@@ -102,6 +102,21 @@ object List {
   // 3.14
   def append[A](la: List[A], lb: List[A]): List[A] =
     foldRight(la, lb)(Cons(_,_))
+
+
+  // 3.16
+  def addOne(lst: List[Int]): List[Int] =
+    foldRight(lst, Nil:List[Int])((elm, acc) => Cons(elm+1, acc))
+
+  // 3.17
+  def doubleToStr(lst: List[Double]): List[String] =
+    foldRight(lst, Nil:List[String])((elm, acc) => Cons(elm.toString, acc))
+
+  // 3.18
+  def map[A, B](as: List[A])(f: A => B): List[B] =
+    foldRight(as, Nil:List[B])((elm, acc) => Cons(f(elm), acc))
+
+
 
 }
 
@@ -141,3 +156,12 @@ println(List.reverse(List(1,2,3)))
 
 // 3.14
 println(List.append(List(1,2,3), List(4,5,6)))
+
+// 3.16
+println(List.addOne(List(1,2,3,4,5)))
+
+// 3.17
+println(List.doubleToStr(List(1.0,2.0,3.0,4.0,5.0)))
+
+// 3.18
+println(List.map(List(5,6,7,8,9))(_ * 2))
