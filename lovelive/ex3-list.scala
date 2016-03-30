@@ -143,7 +143,7 @@ object List {
   def reverse[A](l: List[A]): List[A] =
     foldLeft(l, Nil: List[A]) { (acc, x) => Cons(x, acc) }
 
-  // ex3.10
+  // ex3.13
   def foldRight2[A, B](l: List[A], z: B)(f: (A, B) => B): B =
     foldLeft(reverse(l), z) { (acc, x) => f(x, acc) } 
 
@@ -164,5 +164,8 @@ object List {
     go(z)
   }
   // ただしこいつらはスタックセーフじゃない
+
+  def tasuman(ns: List[Int]): List[Int] = 
+    foldRight(ns, Nil: List[Int]) { (n, acc) => Cons(n + 1, acc) }
 }
 
