@@ -101,8 +101,11 @@ object List {
 
   // 3.14
   def append[A](la: List[A], lb: List[A]): List[A] =
-    foldRight(la, lb)(Cons(_,_))
+    foldRight(la, lb)(Cons.apply)
+    // foldRight(la, lb)(Cons(_,_))
 
+  def concat[A](l: List[List[A]]): List[A] =
+    foldRight(l, Nil:List[A])(append)
 
   // 3.16
   def addOne(lst: List[Int]): List[Int] =
@@ -116,8 +119,32 @@ object List {
   def map[A, B](as: List[A])(f: A => B): List[B] =
     foldRight(as, Nil:List[B])((elm, acc) => Cons(f(elm), acc))
 
+  // 3.19
+  def filter[A](as: List[A])(f: A => Boolean): List[A] =
+    foldRight(as, Nil:List[A]){(elm, acc) => if(f(elm)) Cons(elm, acc) else acc}
 
+  // 3.20
+  def flatMap[A,B](as: List[A])(f: A => List[B]): List[B] =
+    concat(map(as)(f))
+    // foldRight((map(as)(f)), Nil:List[B])(append)
 
+  // 3.21
+  def flatMapFilter[A](as: List[A])(f: A => Boolean): List[A] =
+    flatMap(as)(a => if(f(a)) List(a) else Nil)
+
+  // 3.22
+  def zip(l1: List[Int], l2: List[Int]): List[Int] = (l1,l2) match {
+    case (Nil,_) => Nil
+    case (_,Nil) => Nil
+    case (Cons(h1,t1), Cons(h2,t2)) => Cons(h1+h2, zip(t1,t2))
+  }
+
+  // 3.23
+  def zipWith[A,B](l1: List[A], l2: List[A])(f:(A,A) => B): List[B] = (l1,l2) match {
+    case (Nil,_) => Nil
+    case (_,Nil) => Nil
+    case (Cons(h1,t1), Cons(h2,t2)) => Cons(f(h1,h2), zipWith(t1,t2)(f))
+  }
 }
 
 // 3.1
@@ -143,25 +170,40 @@ val dropWhileList = List.dropWhile(List(1,2,3,4,5), (x: Int) => x == 3)
 
 
 // 3.8 同じListが返却される
-println(List.foldRight(List(1,2,3), Nil:List[Int])(Cons(_,_)))
+List.foldRight(List(1,2,3), Nil:List[Int])(Cons(_,_))
 
 // 3.9
-println(List.length2(List(1,2,3,4,5)))
+List.length2(List(1,2,3,4,5))
 
 // 3.10
-println(List.foldLeft(List(1,2,3,4,5), 0)(_ + _))
+List.foldLeft(List(1,2,3,4,5), 0)(_ + _)
 
 // 3.12
-println(List.reverse(List(1,2,3)))
+List.reverse(List(1,2,3))
 
 // 3.14
-println(List.append(List(1,2,3), List(4,5,6)))
+List.append(List(1,2,3), List(4,5,6))
 
 // 3.16
-println(List.addOne(List(1,2,3,4,5)))
+List.addOne(List(1,2,3,4,5))
 
 // 3.17
-println(List.doubleToStr(List(1.0,2.0,3.0,4.0,5.0)))
+List.doubleToStr(List(1.0,2.0,3.0,4.0,5.0))
 
 // 3.18
-println(List.map(List(5,6,7,8,9))(_ * 2))
+List.map(List(5,6,7,8,9))(_ * 2)
+
+// 3.19
+List.filter(List(1,2,3,4,5))(x => x % 2 == 0)
+
+// 3.20
+println(List.flatMap(List(1,2,3))(i => List(i,i)))
+
+// 3.21
+println(List.flatMapFilter(List(1,2,3,4,5))(x => x % 2 == 0))
+
+// 3.22
+println(List.zip(List(1,2,3), List(4,5,6)))
+
+// 3.23
+println(List.zipWith(List("h","g","f","g"), List("o","e","u","a"))(_ + _))
