@@ -182,9 +182,15 @@ object List {
       foldLeft(zipped, true) { case (acc, (x, y)) => acc && x == y }
     }
 
-    if (sub == Nil) true
-    else if (sup == Nil) false
-    else isSimilar(sup, sub) || hasSubSequence(tail(sup), sub)
+    (sup, sub) match {
+      case (_, Nil) => true
+      case (Nil, _) => false
+      case (a, b) if length(a) < length(b) => false
+      case (Cons(ha, ta), Cons(hb, tb)) if ha != hb =>
+        hasSubSequence(ta, sub)
+      case (a @ Cons(_, t), b) =>
+        isSimilar(a, b) || hasSubSequence(t, sub)
+    }
   }
 }
 
