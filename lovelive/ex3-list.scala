@@ -1,5 +1,7 @@
 package ex3_list
 
+import annotation.tailrec
+
 sealed trait List[+A]
 case object Nil extends List[Nothing]
 case class Cons[A](head: A, tail: List[A]) extends List[A]
@@ -167,5 +169,22 @@ object List {
 
   def tasuman(ns: List[Int]): List[Int] = 
     foldRight(ns, Nil: List[Int]) { (n, acc) => Cons(n + 1, acc) }
+
+  def zipWith[A,B,C](a: List[A], b: List[B])(f: (A,B) => C): List[C] = (a,b) match {
+    case (Nil, _) => Nil
+    case (_, Nil) => Nil
+    case (Cons(h1,t1), Cons(h2,t2)) => Cons(f(h1,h2), zipWith(t1,t2)(f))
+  }
+
+  @tailrec def hasSubSequence[A](sup: List[A], sub: List[A]): Boolean = {
+    def isSimilar(xs: List[A], ys: List[A]): Boolean = {
+      val zipped = zipWith(xs, ys)(Tuple2.apply)
+      foldLeft(zipped, true) { case (acc, (x, y)) => acc && x == y }
+    }
+
+    if (sub == Nil) true
+    else if (sup == Nil) false
+    else isSimilar(sup, sub) || hasSubSequence(tail(sup), sub)
+  }
 }
 
