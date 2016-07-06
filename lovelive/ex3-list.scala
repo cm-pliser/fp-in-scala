@@ -1,5 +1,7 @@
 package ex3_list
 
+import annotation.tailrec
+
 sealed trait List[+A]
 case object Nil extends List[Nothing]
 case class Cons[A](head: A, tail: List[A]) extends List[A]
@@ -143,7 +145,52 @@ object List {
   def reverse[A](l: List[A]): List[A] =
     foldLeft(l, Nil: List[A]) { (acc, x) => Cons(x, acc) }
 
+  // ex3.13
   def foldRight2[A, B](l: List[A], z: B)(f: (A, B) => B): B =
     foldLeft(reverse(l), z) { (acc, x) => f(x, acc) } 
+
+  // ex3.13
+  // foldLeftを用いたfoldRight, foldRightを用いたfoldLeftどちらも可能
+  // 前述 ex3.10 のfoldRight2はfoldLeftを使ったfoldRightの実装の一つ（scala.collection.immutable.ListのfoldRight実装はこれ）
+  // それ以外の手法としてはアキュームレータを関数にしてゼロを恒等写像にした適用法で相互に置換できる
+  def foldLeft3[A,B](l: List[A], z: B)(f: (B, A) => B): B = {
+    val go: B => B = foldRight(l, (b: B) => b) { (a, acc) =>
+      (bb: B) => acc(f(bb, a))
+    }
+    go(z)
+  }
+  def foldRight3[A,B](l: List[A], z: B)(f: (A, B) => B): B = {
+    val go: B => B = foldLeft(l, (b: B) => b) { (acc, a) =>
+      (bb: B) => acc(f(a, bb))
+    }
+    go(z)
+  }
+  // ただしこいつらはスタックセーフじゃない
+
+  def tasuman(ns: List[Int]): List[Int] = 
+    foldRight(ns, Nil: List[Int]) { (n, acc) => Cons(n + 1, acc) }
+
+  def zipWith[A,B,C](a: List[A], b: List[B])(f: (A,B) => C): List[C] = (a,b) match {
+    case (Nil, _) => Nil
+    case (_, Nil) => Nil
+    case (Cons(h1,t1), Cons(h2,t2)) => Cons(f(h1,h2), zipWith(t1,t2)(f))
+  }
+
+  @tailrec def hasSubSequence[A](sup: List[A], sub: List[A]): Boolean = {
+    def isSimilar(xs: List[A], ys: List[A]): Boolean = {
+      val zipped = zipWith(xs, ys)(Tuple2.apply)
+      foldLeft(zipped, true) { case (acc, (x, y)) => acc && x == y }
+    }
+
+    (sup, sub) match {
+      case (_, Nil) => true
+      case (Nil, _) => false
+      case (a, b) if length(a) < length(b) => false
+      case (Cons(ha, ta), Cons(hb, tb)) if ha != hb =>
+        hasSubSequence(ta, sub)
+      case (a @ Cons(_, t), b) =>
+        isSimilar(a, b) || hasSubSequence(t, sub)
+    }
+  }
 }
 
