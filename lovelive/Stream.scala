@@ -145,11 +145,17 @@ object stream {
     def scanRightByUnfold[B](z: => B)(f: (A, => B) => B): Stream[B] =
       unfold(this) {
         case Cons(h, t) => ??? /* how can we apply `f` here? */
-        case _ => z
+        case _ => ???
       }
 
-    def scanRight[B](z: => B)(f: (A, => B) => B): Stream[B] = // this signature is more like `foldRight`
-      ??? // so what?
+    def scanRight[B](z: => B)(f: (A, => B) => B): Stream[B] = { // this signature is more like `foldRight`
+      val (stream, _) = foldRight( (Stream(z), z) ) { 
+        case (a, (sAcc, aAcc)) =>
+          lazy val v = f(a, aAcc)
+          (cons(v, sAcc), v)
+      }
+      stream
+    }
 
     def sTails: Stream[Stream[A]] =
       scanRight(empty[A])(cons(_, _))
