@@ -61,7 +61,12 @@ object state {
     val randIntDouble: Rand[(Int, Double)] = both(int, doubleA)
     val randDoubleInt: Rand[(Double, Int)] = both(doubleA, int)
 
-    def sequence[A](fs: List[Rand[A]]): Rand[List[A]] = ???
+    def sequence[A](fs: List[Rand[A]]): Rand[List[A]] = 
+      firstRng =>
+        fs.foldRight( (List.empty[A], firstRng) ) { case (rand, (acc, rng)) =>
+          val (a, rng2) = rand(rng)
+          (a :: acc, rng2)
+        }
 
     def intsA(count: Int)(rng: RNG): (List[Int], RNG) = {
       val intRands = List.range(0, count).map(_ => int)
