@@ -1,12 +1,12 @@
 object state {
 
+  trait RNG {
+    def nextInt: (Int, RNG)
+  }
+
   object random {
 
     type Rand[+A] = RNG => (A, RNG)
-
-    trait RNG {
-      def nextInt: (Int, RNG)
-    }
 
     case class SimpleRNG(seed: Long) extends RNG {
       def nextInt: (Int, RNG) = {
@@ -93,5 +93,11 @@ object state {
           unit(f(a, b))
         }
       }
+  }
+
+  object state {
+    case class State[S,+A](run: S => (A,S))
+
+    type Rand[A] = State[RNG, A]
   }
 }
