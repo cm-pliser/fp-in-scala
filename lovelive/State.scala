@@ -83,5 +83,15 @@ object state {
       flatten(map(f)(g))
 
     def unit[A](a: A): Rand[A] = rng => (a, rng)
+
+    def mapB[A,B](ra: Rand[A])(f: A => B): Rand[B] =
+      flatMap(ra) { a => unit(f(a)) }
+
+    def map2B[A,B,C](ra: Rand[A], rb: Rand[B])(f: (A,B) => C): Rand[C] =
+      flatMap(ra) { a =>
+        flatMap(rb) { b =>
+          unit(f(a, b))
+        }
+      }
   }
 }
