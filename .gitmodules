@@ -7,3 +7,6 @@
 [submodule "igachan/scala-sandbox"]
 	path = igachan/scala-sandbox
 	url = git@github.com:cm-igarashi-ryosuke/scala-sandbox-1.git
+[submodule "wuffy/ScalaDwangoText"]
+	path = wuffy/ScalaDwangoText
+	url = https://github.com/UsrNameu1/ScalaDwangoText
