@@ -1,7 +1,15 @@
 |path|author
 |:--|:--
 |igachan|いがらし
-|garupan|おおむら
 |wuffy|あだち
 |emacs|かん
-|lovelive|あらい
+|kamedon|かめどん
+|komuro|こむろ
+|seratch|せら
+|takaaki|タカアキ
+|ishikawa|いしかわ
+|kenji|たなけん
+|kudo|くどう
+|saito-san|みのる
+|suwa|すわ
+|ven|わだ
