@@ -4,3 +4,6 @@
 [submodule "ven/scara-prac"]
 	path = ven/scara-prac
 	url = https://github.com/cm-wada-yusuke/scala-prac.git
+[submodule "wuffy/ScalaDwangoText"]
+	path = wuffy/ScalaDwangoText
+	url = https://github.com/UsrNameu1/ScalaDwangoText
