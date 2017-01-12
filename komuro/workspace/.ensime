@@ -1,0 +1,22 @@
+(
+ :root-dir "/Users/komurohiraku/Develop/scala/fp-in-scala/komuro/workspace"
+ :cache-dir "/Users/komurohiraku/Develop/scala/fp-in-scala/komuro/workspace/.ensime_cache"
+ :name "workspace"
+ :java-home "/Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home"
+ :java-flags ("-XX:MaxMetaspaceSize=256m" "-XX:ReservedCodeCacheSize=128m" "-Xms1024m" "-Xmx1024m" "-Xss2m")
+ :reference-source-roots ("/Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip")
+ :scala-version "2.12.0"
+ :compiler-args ("-Xfuture" "-Xlint" "-Yinline-warnings" "-Yno-adapted-args" "-Ywarn-dead-code" "-Ywarn-numeric-widen" "-Ywarn-unused-import" "-deprecation" "-feature")
+ :formatting-prefs nil
+ :subprojects ((
+   :name "workspace"
+   :source-roots nil
+   :targets ("/Users/komurohiraku/Develop/scala/fp-in-scala/komuro/workspace/target/scala-2.12/classes")
+   :test-targets ("/Users/komurohiraku/Develop/scala/fp-in-scala/komuro/workspace/target/scala-2.12/test-classes")
+   :depends-on-modules nil
+   :compile-deps ("/Users/komurohiraku/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.12.0.jar")
+   :runtime-deps nil
+   :test-deps nil
+   :doc-jars ("/Users/komurohiraku/.ivy2/cache/org.scala-lang/scala-library/docs/scala-library-2.12.0-javadoc.jar" "/Users/komurohiraku/Develop/scala/fp-in-scala/komuro/workspace/target/scala-2.12/workspace_2.12-0.1-SNAPSHOT-javadoc.jar")
+   :reference-source-roots ("/Users/komurohiraku/.ivy2/cache/org.scala-lang/scala-library/srcs/scala-library-2.12.0-sources.jar")))
+)
