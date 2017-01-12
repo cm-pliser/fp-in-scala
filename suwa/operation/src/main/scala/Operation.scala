@@ -1,3 +1,5 @@
+import java.util.Locale
+
 object Operation {
   def main(args: Array[String]): Unit = {
 
@@ -125,5 +127,24 @@ object Operation {
         println("ok")
     }
 
+    val obj: AnyRef = "String Literal"
+    obj match {
+      case v:java.lang.Integer =>
+        println("Integer!")
+      case v:String =>
+        println(v.toUpperCase(Locale.ENGLISH))
+    }
+
+    val anyList: Any = List("a")
+    anyList match {
+      case v: List[_] => println("List[_]")
+    }
+
+    for(i <- 1 to 1000) {
+      val s = new scala.util.Random(new java.security.SecureRandom()).alphanumeric.take(5).toList match {
+        case List(a,b,c,d,_) => List(a,b,c,d,a).mkString
+      }
+      println(s)
+    }
   }
 }
