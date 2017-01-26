@@ -1,5 +1,5 @@
 class APrinter {
-  def print(): Unit = {
+  def print(): Any = {
     println("A")
   }
 }
@@ -11,7 +11,9 @@ class BPrinter extends APrinter {
 }
 
 class CPrinter extends APrinter {
-
+  override def print(): String = {
+    "C"
+  }
 }
 
 def main():Unit = {

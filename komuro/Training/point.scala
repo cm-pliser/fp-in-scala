@@ -4,11 +4,11 @@ class Point(val x: Int, val y: Int) {
   }
   override def toString(): String = "(" + x + ", " + y + ")"
 
-  // private[this] val hoge = "hoge"
-  // def toPrivateString(): String = "private :" + hoge
+  private val hoge = "hoge"
+  def toPrivateString(): String = "private :" + new Point(1, 2).hoge
 }
 
-val p = new Point(1, 2)
-println(p)
+// val p = new Point(1, 2)
+// println(p)
 // println(p.hoge)
 // println(p.toPrivateString)
