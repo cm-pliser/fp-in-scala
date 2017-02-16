@@ -31,4 +31,13 @@ object Lesson9 {
     case x :: xs => xs.foldLeft(x.toString)((x, y) => x + sep + y)
   }
 
+  
+
+  def forTest():Unit = {
+    for {
+      i <- List(1, 2, 3, 4, 5)
+      j <- List("Hello", "Goodbye")
+    } println(s"$i, $j")
+  }
+
 }
