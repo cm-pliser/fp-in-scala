@@ -31,10 +31,11 @@ object Lesson16_refactored {
             } yield Success(postalCode)
         ).merge
 
-        // Either.mergeって何 http://www.scala-lang.org/old/node/2332.html
+        // Either.mergeって何だよ -> http://www.scala-lang.org/old/node/2332.html
     }
 
     def findUser(userId: Int): Either[Failure, User] = {
+        // toRightって何だよ → http://blog.shibayu36.org/entry/2015/08/31/103000
         userDatabase.get(userId).toRight(UserNotFound)
     }
 
