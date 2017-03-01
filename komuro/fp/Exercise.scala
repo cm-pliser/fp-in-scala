@@ -1,5 +1,6 @@
 object Exercise {
 
+  // 素直に定義を書いただけ
   def fib(n: Int): Int = {
 
     def loop(count: Int, acc: Int): Int = {
@@ -34,11 +35,29 @@ object Exercise {
     loop(0, true)
   }
 
+  // 部分関数
+  def partial1[A, B, C](a: A, f: (A, B) => C): B => C =
+    (b: B) => f(a, b)
+
+  // カリー化
+  def curry[A, B, C](f: (A, B) => C) : A => (B => C) =
+    (a: A) => f(a, _)
+
+  def uncurry[A, B, C](f: A => B => C): (A, B) => C =
+    (a: A, b: B) => f(a)(b)
+
+
   def main(args: Array[String]): Unit = {
     println(fib(5))
     println(fib(6))
     println(fib(7))
 
     println(isSorted(Array(2, 3, 5, 6, 0), (a:Int, b:Int) => a < b))
+
+    val curriedFunction = curry((x: Int, y:Int) => x + y)
+    println("Curry後 : " + curriedFunction(2)(3))
+
+    var uncurryFunction = uncurry(curriedFunction)
+    println("Uncurry後 : " + uncurryFunction(2, 3))
   }
 }
