@@ -10,3 +10,6 @@
 [submodule "wuffy/ScalaDwangoText"]
 	path = wuffy/ScalaDwangoText
 	url = https://github.com/UsrNameu1/ScalaDwangoText
+[submodule "igachan/fpinscala"]
+	path = igachan/fpinscala
+	url = https://github.com/bisque33/fpinscala
