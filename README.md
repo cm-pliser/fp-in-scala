@@ -14,3 +14,4 @@
 |suwa|すわ
 |ven|わだ
 |yoshihitoh|ひらかわ
+|katainaka|やまさき
