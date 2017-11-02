@@ -13,3 +13,4 @@
 |saito-san|みのる
 |suwa|すわ
 |ven|わだ
+|yoshihitoh|ひらかわ
