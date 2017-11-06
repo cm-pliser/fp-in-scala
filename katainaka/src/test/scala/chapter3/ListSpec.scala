@@ -18,5 +18,28 @@ class ListSpec extends FlatSpec with Matchers {
     result shouldBe 3
   }
 
+  "foldRightShortCurcuit" should "短絡評価する" in {
+    val values = List(1, 2, 3, 0, 4 , 5, 0)
+
+    var i = 0
+    foldRightShortCircuit(values, 1)((a, b) => if(a == 0) 0 else {
+      i = i + 1
+      a * b
+    })
+
+    i shouldBe 3
+  }
+
+  "foldRightShortCurcuit2" should "短絡評価する" in {
+    val values = List(1, 2, 3, 0, 4 , 5, 0)
+
+    var i = 0
+    foldRightShortCircuit2(values,() => 1)((a, b) => if(a == 0) 0 else {
+      i = i + 1
+      a * b()
+    })
+
+    i shouldBe 3
+  }
 
 }

@@ -60,4 +60,25 @@ object List {
     case Cons(a, Nil) => Nil
     case Cons(a, as) => Cons(a, init(as))
   }
+
+  def foldRight[A, B](list: List[A], z: B)(f: (A, B) => B): B = list match {
+    case Cons(a, as) => f(a, foldRight(as, z)(f))
+    case Nil => z
+  }
+
+  def foldRightShortCircuit[A, B](list: List[A], z: => B)(f: (A, =>B) => B): B = list match {
+    case Cons(a, as) => f(a, foldRightShortCircuit(as, z)(f))
+    case Nil => z
+  }
+
+  def foldRightShortCircuit2[A, B](list: List[A], z:() => B)(f: (A, () => B) => B) : B = list match {
+    case Cons(a, as) => f(a, () => foldRightShortCircuit2(as, z)(f))
+    case Nil => z()
+  }
+
+  /*
+  NilとConsを特定の値で置き換えるのがfoldRight
+  Cons(1, Cons(2, Cons(2, Nil)))
+  plus(1, plus(2, plus(3, 0)))
+   */
 }
