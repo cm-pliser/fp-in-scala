@@ -13,3 +13,6 @@
 [submodule "igachan/fpinscala"]
 	path = igachan/fpinscala
 	url = https://github.com/bisque33/fpinscala
+[submodule "ksasaki"]
+	path = ksasaki
+	url = git@github.com:kazup0n/fpinscala.git
