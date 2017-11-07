@@ -16,3 +16,6 @@
 [submodule "ksasaki"]
 	path = ksasaki
 	url = git@github.com:kazup0n/fpinscala.git
+[submodule "yoshihitoh/fpinscala"]
+	path = yoshihitoh/fpinscala
+	url = https://github.com/cm-hirakawa-yoshihito/fpinscala
