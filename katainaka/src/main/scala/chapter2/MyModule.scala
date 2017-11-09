@@ -5,11 +5,11 @@ import scala.annotation.tailrec
 object MyModule {
   def fib(n: Int): Int = {
     @tailrec
-    def go(prev: Int, current: Int, nth: Int): Int =
+    def go(current: Int, next: Int, nth: Int): Int =
       nth match {
-        case 0 => prev
-        case 1 => current
-        case _ => go(current, prev + current, nth - 1)
+        case 0 => current
+        case 1 => next
+        case _ if nth >= 2 => go(next, current + next, nth - 1)
       }
 
     go(0, 1, n)
@@ -44,11 +44,11 @@ object MyModule {
     go(0)
   }
 
-  def curry[A, B, C](f: (A, B) => C): A => B => C =
-    (a: A) => (b: B) => f(a, b)
+  def curry[A, B, C](f: (A, B) => C): A => (B => C) =
+    (a: A) => f(a, _)
 
   def uncurry[A, B, C](f: A => B => C): (A, B) => C =
-    (a: A, b: B) => f(a)(b)
+    f(_: A)(_: B)
 
   def compose[A, B, C](f: B => C, g: A => B): A => C =
     (a: A) => f(g(a))
