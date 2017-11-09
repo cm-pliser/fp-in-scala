@@ -15,3 +15,4 @@
 |ven|わだ
 |yoshihitoh|ひらかわ
 |katainaka|やまさき
+|ksasaki|ささき

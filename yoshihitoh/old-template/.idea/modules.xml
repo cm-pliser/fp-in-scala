@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/yoshihitoh.iml" filepath="$PROJECT_DIR$/.idea/modules/yoshihitoh.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/yoshihitoh-build.iml" filepath="$PROJECT_DIR$/.idea/modules/yoshihitoh-build.iml" />
+    </modules>
+  </component>
+</project>
