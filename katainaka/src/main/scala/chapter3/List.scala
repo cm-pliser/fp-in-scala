@@ -19,12 +19,12 @@ object List {
 
   def head[A](as: List[A]): A = as match {
     case Cons(a, _) => a
-    case Nil => throw new RuntimeException
+    case Nil => throw new IllegalArgumentException("Passed list is Empty.")
   }
 
   def tail[A](as: List[A]): List[A] = as match {
     case Cons(_, tail) => tail
-    case Nil => throw new RuntimeException
+    case Nil => throw new IllegalArgumentException("Passed list is Empty.")
     //head::tail == 元のリストというルールを保てないため例外を投げることを選択した
   }
 
@@ -44,7 +44,7 @@ object List {
   def drop[A](as: List[A], n: Int): List[A] =
 
     n match {
-      case _ if n < 0 => throw new RuntimeException
+      case _ if n < 0 => throw new IllegalArgumentException("Passed list is Empty.")
       case 0 => as
       case pos => drop(tail(as), pos - 1)
     }
@@ -56,7 +56,7 @@ object List {
   }
 
   def init[A](l: List[A]): List[A] = l match {
-    case Nil => throw new RuntimeException
+    case Nil => throw new IllegalArgumentException("Passed list is Empty.")
     case Cons(a, Nil) => Nil
     case Cons(a, as) => Cons(a, init(as))
   }
