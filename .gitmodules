@@ -19,3 +19,6 @@
 [submodule "yoshihitoh/fpinscala"]
 	path = yoshihitoh/fpinscala
 	url = https://github.com/cm-hirakawa-yoshihito/fpinscala
+[submodule "waddy"]
+	path = waddy
+	url = git@github.com:cm-wada-yusuke/fp-in-scala.git
