@@ -1,5 +1,7 @@
 package chapter3
 
+import scala.annotation.tailrec
+
 sealed trait List[+A]
 
 case object Nil extends List[Nothing]
@@ -41,19 +43,25 @@ object List {
   def setHead[A](as: List[A], newHead: A): List[A] =
     Cons(newHead, tail(as))
 
+  //drop(Cons(3, Cons(2, Cons(1, Nil))), 3) は
+  //drop(Cons(2, Cons(1, Nil)), 2)
+  @tailrec
   def drop[A](as: List[A], n: Int): List[A] =
-
     n match {
-      case _ if n < 0 => throw new IllegalArgumentException("Passed list is Empty.")
+      case _ if n < 0 => throw new IllegalArgumentException("Negative number is passed")
       case 0 => as
-      case pos => drop(tail(as), pos - 1)
+      case pos => as match {
+        case Cons(_, t) => drop(t, pos - 1)
+        case Nil => throw new IllegalArgumentException("Passed list is smaller than n")
+      }
     }
 
-  def dropWhile[A](as: List[A], f: A => Boolean): List[A] = if (f(head(as))) {
-    dropWhile(tail(as), f)
-  } else {
-    as
-  }
+  @tailrec
+  def dropWhile[A](as: List[A], f: A => Boolean): List[A] =
+    as match {
+      case Cons(h, t) if f(h) => dropWhile(t, f)
+      case _ => as
+    }
 
   def init[A](l: List[A]): List[A] = l match {
     case Nil => throw new IllegalArgumentException("Passed list is Empty.")

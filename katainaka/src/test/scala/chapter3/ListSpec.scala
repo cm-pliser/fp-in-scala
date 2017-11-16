@@ -18,6 +18,24 @@ class ListSpec extends FlatSpec with Matchers {
     result shouldBe 3
   }
 
+  "drop" should "適切に動作する" in {
+    val values = List(1, 2, 3, 4, 5)
+
+    drop(values, 2) shouldBe List(3, 4, 5)
+  }
+
+  "drop" should "大きい値はさようなら" in {
+    val values = List(1, 2, 3, 4, 5)
+
+    an[IllegalArgumentException] shouldBe thrownBy{drop(values, 6)}
+  }
+
+  "dropWhile" should "適切に動作する" in {
+    val values = List(1, 2, 3, 4, 5)
+
+    dropWhile[Int](values, _ < 3) shouldBe List(3, 4, 5)
+  }
+
   "foldRightShortCurcuit" should "短絡評価する" in {
     val values = List(1, 2, 3, 0, 4 , 5, 0)
 
