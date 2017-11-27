@@ -60,4 +60,19 @@ class ListSpec extends FlatSpec with Matchers {
     i shouldBe 3
   }
 
+   "foldRightBasedOnFoldLeft" should "計算する" in {
+    val values = List(1, 2, 3, 0, 4 , 5, 0)
+
+
+    foldRightBasedOnFoldLeft(values, 0){_ + _} shouldBe 15
+  }
+
+  "foldLeftBasedOnFoldRight" should "計算する" in {
+    val values = List(1, 2, 3, 0, 4 , 5, 0)
+
+
+    foldLeftBasedOnFoldRight(0, values){_ + _} shouldBe 15
+  }
+
+
 }
