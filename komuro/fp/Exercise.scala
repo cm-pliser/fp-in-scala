@@ -28,7 +28,7 @@ object Exercise {
   // 頭わるすぎでは・・・
   def isSorted[A](as: Array[A], ordered: (A, A) => Boolean): Either[Throwable, Boolean] = {
     def loop(n:Int, res: Boolean): Either[Throwable, Boolean] =
-      if (n + 1 > as.length) Left(new Exception("can not Compare"))
+      if (n > as.length - 1) Left(new Exception("can not Compare"))
       else if (n == as.length - 1) Right(res)
       else loop(n + 1, (ordered(as(n), as(n + 1))))
 
@@ -41,6 +41,9 @@ object Exercise {
 
   // カリー化
   def curry[A, B, C](f: (A, B) => C) : A => (B => C) =
+    (a: A) => (b: B) => f(a, b) 
+
+  def curryA[A, B, C](f: (A, B) => C) : A => (B => C) =
     (a: A) => f(a, _)
 
   def uncurry[A, B, C](f: A => B => C): (A, B) => C =
@@ -53,7 +56,9 @@ object Exercise {
     println(fib(7))
 
     println(isSorted(Array(2, 3, 5, 6, 0), (a:Int, b:Int) => a < b))
-
+    println(isSorted(Array(1, 9, 11, 244, 256), (a:Int, b:Int) => a < b))
+    println(isSorted(Array(256), (a:Int, b:Int) => a < b))
+    
     val curriedFunction = curry((x: Int, y:Int) => x + y)
     println("Curry後 : " + curriedFunction(2)(3))
 
