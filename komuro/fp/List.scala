@@ -176,6 +176,29 @@ object List {
         // (2, 4, 6, 8)
         // (1, 3, 5, 7) を左から処理してConsするため。tailにつければOK？
 
+    /** foldRightを利用したAppend */
     def appendViaFoldRight[A](l: List[A], r: List[A]): List[A] =
         foldRight(l, r)(Cons(_,_))
+    
+    /** Exercise 3-16 */
+    def add1(list: List[Int]): List[Int] = 
+        foldRight(list, Nil:List[Int])((a, b) => Cons(a + 1, b))
+    
+    /** Exercise 3-17 */
+    def listToString(list: List[Double]): List[String] = 
+        foldRight(list, Nil:List[String])((a, b) => Cons(a.toString(), b))
+
+    /** Exercise 3-18 */
+    def map[A, B](as: List[A])(f:A => B): List[B] = 
+        foldLeft(as, Nil:List[B])((result, item) => Cons(f(item), result))
+
+    /** Exercise 3-19 */
+    def filter[A](as: List[A])(f: A => Boolean): List[A] = 
+        foldLeft(as, Nil:List[A])((result, item) => {
+            if (f(item)) Cons(item, result) else result
+        })
+
+    /** Exercise 3-20 */
+    def flatMap[A, B](as: List[A])(f: A => List[B]): List[B] = 
+        
 }

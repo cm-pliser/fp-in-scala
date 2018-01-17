@@ -23,5 +23,20 @@ object Ex3 {
         println("Exercise 3-14: foldLeft")
         println(List.apeendByfoldLeft(List(1, 3, 5, 7), List(2, 4, 6, 8)))
         println(List.appendViaFoldRight(List(1, 3, 5, 7), List(2, 4, 6, 8)))
+
+        println("Exercise 3-16: add 1")
+        println(List.add1(List(1, 5, 10, 15)))
+
+        println("Exercise 3-17: List[Double] to List[String]")
+        println(List.listToString(List(1.0, 2.0, 3.3, 4.5)))
+
+        println("Exercise 3-18: map")
+        val hoge = List.map(List(1.1, 2.2, 3.3, 4.4, 5.5))(x => x.toString() + " HOGE")
+        println(hoge)
+
+
+        println("Exercise 3-19: Filter")
+        val fuga = List.filter(List(1, 11, 22, 41, 54, 21))(x => x % 2 == 0)
+        println(fuga)
     }
 }
