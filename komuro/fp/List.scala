@@ -179,6 +179,9 @@ object List {
     /** foldRightを利用したAppend */
     def appendViaFoldRight[A](l: List[A], r: List[A]): List[A] =
         foldRight(l, r)(Cons(_,_))
+
+    def concat[A](l: List[List[A]]): List[A] =
+        foldRight(l, Nil:List[A])(append)
     
     /** Exercise 3-16 */
     def add1(list: List[Int]): List[Int] = 
@@ -200,5 +203,6 @@ object List {
 
     /** Exercise 3-20 */
     def flatMap[A, B](as: List[A])(f: A => List[B]): List[B] = 
+        concat(map(as)(f))
         
 }
