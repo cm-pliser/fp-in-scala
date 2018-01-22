@@ -1,5 +1,6 @@
 package chapter4
 
+import chapter4.Ior.{ Left, Right }
 import org.scalacheck.Gen
 import org.scalatest.FlatSpec
 import org.scalatest.Matchers._

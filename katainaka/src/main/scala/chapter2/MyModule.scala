@@ -7,8 +7,8 @@ object MyModule {
     @tailrec
     def go(current: Int, next: Int, nth: Int): Int =
       nth match {
-        case 0 => current
-        case 1 => next
+        case 0             => current
+        case 1             => next
         case _ if nth >= 2 => go(next, current + next, nth - 1)
       }
 
@@ -35,9 +35,9 @@ object MyModule {
       } yield ordered(first, second)
 
       result match {
-        case None => true //配列の最後まで見た
+        case None        => true //配列の最後まで見た
         case Some(false) => false //順番通り並んでいなかった
-        case Some(true) => go(indexOfFirst + 1) //ここはオッケーなので次へ
+        case Some(true)  => go(indexOfFirst + 1) //ここはオッケーなので次へ
       }
     }
 

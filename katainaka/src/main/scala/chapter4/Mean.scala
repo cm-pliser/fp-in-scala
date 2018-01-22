@@ -5,7 +5,7 @@ object Mean {
     if (xs.isEmpty) {
       Left("mean of empty list!")
     } else {
-      Right(xs.sum/ xs.length)
+      Right(xs.sum / xs.length)
     }
   }
 }
