@@ -214,11 +214,9 @@ object List {
     }
   }
 
-  //hasSequence(List(1, 2, 3), List(2, 3))
-
-  //1. exists(List(List(1, 2, 3), List(2, 3), List(3), List()))(startsWith(_, sub)
-
-  //2. それぞれがsubで始まるかを検査しsubで始まっていたらオッケー
+  /*hasSequence(List(1, 2, 3), List(2, 3))
+  1. exists(List(List(1, 2, 3), List(2, 3), List(3), List()))(startsWith(_, sub)
+  2. それぞれがsubで始まるかを検査しsubで始まっていたらオッケー*/
 
   def hasSubsequence[A](sup: List[A], sub: List[A]): Boolean =
     exists(tailsWithList(sup))(startsWith(_, sub))

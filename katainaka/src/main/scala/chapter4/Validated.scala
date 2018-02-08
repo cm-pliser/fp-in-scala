@@ -21,6 +21,10 @@ sealed trait Validated[+E, +A] {
     }
 }
 
+case class Invalid/*Left*/[+E](errors: List[E]) extends Validated[E, Nothing]
+
+case class Valid/*Right*/[+A](value: A) extends Validated[Nothing, A]
+
 object Validated {
   //Aplicative
   def unit[A](a: A): Validated[Nothing, A] = Valid(a)
@@ -35,7 +39,13 @@ object Validated {
       case (Valid(a), Valid(b))         => Valid(f(a, b))
     }
 
-  def traverse[E, A, B](as: List[A])(f: A => Validated[E, B]) =
+
+  def `map2まちがい`[E1, E2 >: E1, A, B, C](va: Validated[E1, A], vb: Validated[E2, B])(
+    f: (A, B) => C
+  ): Validated[E2, C] =
+    va.flatMap(a => vb.map(b => f(a, b)))
+
+  def traverse[E, A, B](as: List[A])(f: A => Validated[E, B]): Validated[E, List[B]] =
     as.foldRight[Validated[E, List[B]]](Valid(Nil))(
       (a, acc) => Validated.map2(f(a), acc) { _ :: _ }
     )
@@ -44,7 +54,3 @@ object Validated {
     traverse(as)(identity)
 
 }
-
-case class Invalid[+E](errors: List[E]) extends Validated[E, Nothing]
-
-case class Valid[+A](value: A) extends Validated[Nothing, A]

@@ -1,20 +1,23 @@
 package chapter3
 
-import org.scalacheck.{ Arbitrary, Gen }
+import org.scalacheck.{Arbitrary, Gen}
 import org.scalatest.prop.GeneratorDrivenPropertyChecks
-import org.scalatest.{ FlatSpec, Matchers }
+import org.scalatest.{FlatSpec, Matchers}
 
-class ListSpec extends FlatSpec with Matchers with GeneratorDrivenPropertyChecks {
+class ListSpec
+    extends FlatSpec
+    with Matchers
+    with GeneratorDrivenPropertyChecks {
 
   import List._
 
   "パターンマッチ" should "試してみた" in {
     val result = List(1, 2, 3, 4, 5) match {
-      case Cons(x, Cons(2, Cons(4, _))) => x
-      case Nil => 42
+      case Cons(x, Cons(2, Cons(4, _)))          => x
+      case Nil                                   => 42
       case Cons(x, Cons(y, Cons(3, Cons(4, _)))) => x + y
-      case Cons(h, t) => h + sum(t)
-      case _ => 101
+      case Cons(h, t)                            => h + sum(t)
+      case _                                     => 101
     }
 
     result shouldBe 3
@@ -44,11 +47,14 @@ class ListSpec extends FlatSpec with Matchers with GeneratorDrivenPropertyChecks
     val values = List(1, 2, 3, 0, 4, 5, 0)
 
     var i = 0
-    foldRightShortCircuit(values, 1)((a, b) =>
-      if (a == 0) 0 else {
-        i = i + 1
-        a * b
-      })
+    foldRightShortCircuit(values, 1)(
+      (a, b) =>
+        if (a == 0) 0
+        else {
+          i = i + 1
+          a * b
+      }
+    )
 
     i shouldBe 3
   }
@@ -57,10 +63,14 @@ class ListSpec extends FlatSpec with Matchers with GeneratorDrivenPropertyChecks
     val values = List(1, 2, 3, 0, 4, 5, 0)
 
     var i = 0
-    foldRightShortCircuit2(values, () => 1)((a, b) => if (a == 0) 0 else {
-      i = i + 1
-      a * b()
-    })
+    foldRightShortCircuit2(values, () => 1)(
+      (a, b) =>
+        if (a == 0) 0
+        else {
+          i = i + 1
+          a * b()
+      }
+    )
 
     i shouldBe 3
   }
@@ -71,7 +81,6 @@ class ListSpec extends FlatSpec with Matchers with GeneratorDrivenPropertyChecks
       acc = Cons(1, acc)
     }
 
-
     foldRightBasedOnFoldLeft3(acc, 0) {
       _ + _
     } shouldBe 100000
@@ -80,15 +89,16 @@ class ListSpec extends FlatSpec with Matchers with GeneratorDrivenPropertyChecks
   "foldLeftBasedOnFoldRight" should "計算する" in {
     val values = List(1, 2, 3, 0, 4, 5, 0)
 
-
     foldLeftBasedOnFoldRight(0, values)(_ + _) shouldBe 15
   }
 
-  implicit def arbList[A](implicit arbA: Arbitrary[A]): Arbitrary[List[A]] = Arbitrary {
-    Gen.listOf(arbA.arbitrary).map(List(_: _*))
-  }
+  implicit def arbList[A](implicit arbA: Arbitrary[A]): Arbitrary[List[A]] =
+    Arbitrary {
+      Gen.listOf(arbA.arbitrary).map(List(_: _*))
+    }
 
-  def nonEmptyListGen[A](implicit arbA: Arbitrary[A]) = Gen.nonEmptyListOf(arbA.arbitrary).map(List(_: _*))
+  def nonEmptyListGen[A](implicit arbA: Arbitrary[A]) =
+    Gen.nonEmptyListOf(arbA.arbitrary).map(List(_: _*))
 
   "append1ToAllElement" should "全部の要素に1を足す" in {
     val values = List(1, 2, 3)
@@ -115,13 +125,19 @@ class ListSpec extends FlatSpec with Matchers with GeneratorDrivenPropertyChecks
   }
 
   "map" should "可換である" in {
-    forAll((list: List[String], f: String => Int, g: Int => Long) =>
-      map(map(list)(f))(g) shouldBe map(list)(f andThen g)
+    forAll(
+      (list: List[String], f: String => Int, g: Int => Long) =>
+        map(map(list)(f))(g) shouldBe map(list)(f andThen g)
     )
   }
 
   "tailsWithList" should "適切に動作する" in {
-    tailsWithList(List(1, 2, 3)) shouldBe List(List(1, 2, 3), List(2, 3), List(3), List())
+    tailsWithList(List(1, 2, 3)) shouldBe List(
+      List(1, 2, 3),
+      List(2, 3),
+      List(3),
+      List()
+    )
   }
 
   "startsWith" should "適切に動作する" in {
@@ -130,10 +146,12 @@ class ListSpec extends FlatSpec with Matchers with GeneratorDrivenPropertyChecks
   }
 
   "hasSubsequence" should "含む例" in {
-    forAll { (prefix: List[String], sub: List[String], suffix: List[String]) => {
-      val sup = flatten(List(prefix, sub, suffix))
-      hasSubsequence(sup, sub) shouldBe true
-    }}
+    forAll { (prefix: List[String], sub: List[String], suffix: List[String]) =>
+      {
+        val sup = flatten(List(prefix, sub, suffix))
+        hasSubsequence(sup, sub) shouldBe true
+      }
+    }
   }
 
   "hasSubsequence" should "含まない例" in {

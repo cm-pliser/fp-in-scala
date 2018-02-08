@@ -1,14 +1,15 @@
 package chapter2
 
-import org.scalatest.{ FlatSpec, Matchers }
+import org.scalatest.{FlatSpec, Matchers}
 
 class MyModuleSpec extends FlatSpec with Matchers {
 
   import chapter2.MyModule._
 
   "fib()" should "0, 1, 1, 2, 3, 5から始まる" in {
-    List(0, 1, 1, 2, 3, 5).zipWithIndex.map { case (nthFib, n) =>
-      fib(n) shouldBe nthFib
+    List(0, 1, 1, 2, 3, 5).zipWithIndex.map {
+      case (nthFib, n) =>
+        fib(n) shouldBe nthFib
     }
   }
 
@@ -30,7 +31,8 @@ class MyModuleSpec extends FlatSpec with Matchers {
 
   "curry" should "元の関数と戻り値は同じ" in {
 
-    def f(value: Double, multiplier: Int): String = (value * multiplier).toString
+    def f(value: Double, multiplier: Int): String =
+      (value * multiplier).toString
 
     val x = 10.4
     val y = 3
@@ -39,7 +41,8 @@ class MyModuleSpec extends FlatSpec with Matchers {
 
   "uncurry" should "元の関数と戻り値は同じ" in {
 
-    def f(value: Double)(multiplier: Int): String = (value * multiplier).toString
+    def f(value: Double)(multiplier: Int): String =
+      (value * multiplier).toString
 
     val x = 10.4
     val y = 3

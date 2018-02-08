@@ -25,9 +25,11 @@ case class Some[+A](value: A) extends Option[A]
 case object None extends Option[Nothing]
 
 object Option {
+
+  //List(1, 2, 3)
   def traverse[A, B](as: List[A])(f: A => Option[B]): Option[List[B]] =
-    as.foldRight[Option[List[B]]](Some(Nil)) { (a, acc) =>
-      map2(f(a), acc)(_ :: _)
+    as.foldRight[Option[List[B]]](Some(Nil)) { (a: A, acc: Option[List[B]]) =>
+      map2(f(a): Option[B], acc: Option[List[B]]){(a, as) => a :: as}
     }
 
   def sequence[A](a: List[Option[A]]): Option[List[A]] =
