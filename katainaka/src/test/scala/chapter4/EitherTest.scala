@@ -25,7 +25,7 @@ class EitherTest extends WordSpec with GeneratorDrivenPropertyChecks {
 
     "Rightなら中身に関数適用" in
       forAll { (r: Right[Int], f: Int => Double) =>
-        r.map(f) shouldBe Ior.Right(f(r.value))
+        r.map(f) shouldBe Right(f(r.value))
       }
   }
 
@@ -95,12 +95,12 @@ class EitherTest extends WordSpec with GeneratorDrivenPropertyChecks {
   "traverse" should {
     "すべてRightを返すならRight(List(a, b, c, ...))のようになる" in
       forAll { (a: List[Int], f: Int => Right[String]) =>
-        Either.traverse(a)(f) shouldBe Ior.Right(a.map(f).map(_.value))
+        Either.traverse(a)(f) shouldBe Right(a.map(f).map(_.value))
       }
 
     "Listが空ならRight(List())" in
       forAll { (f: Int => Either[String, Double]) =>
-        Either.traverse(List())(f) shouldBe Ior.Right(List())
+        Either.traverse(List())(f) shouldBe Right(List())
       }
 
     "Leftを含むならば最初のLeft" in

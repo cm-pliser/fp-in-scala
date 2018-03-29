@@ -10,9 +10,9 @@ sealed trait Either[+E, +A] {
     case Left(e)  => Left(e)
     case Right(a) => f(a)
   }
-  def orElse[B >: A, E2 >: E](other: Either[E2, B]) = this match {
+  def orElse[B >: A, E2 >: E](other: Either[E2, B]): Either[E2, B] = this match {
     case Left(_)  => other
-    case Right(a) => Ior.Right(a)
+    case Right(a) => Right(a)
   }
   def map2[B, E2 >: E, C](other: Either[E2, B])(f: (A, B) => C): Either[E2, C] =
     for {
